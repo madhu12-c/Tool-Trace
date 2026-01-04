@@ -6,7 +6,15 @@ const toolSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    toolType: {
+    serialNo: {
+      type: String,
+      required: true,
+        unique: true,
+    },
+     purchasedFrom: {
+      type: String,
+    },
+    purchasedSite: {
       type: String,
     },
     status: {

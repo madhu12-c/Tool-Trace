@@ -13,3 +13,11 @@ app.get("/", (req, res) => {
 });
 
 module.exports = app;
+const authRoutes = require("./routes/authRoutes");
+const siteRoutes = require("./routes/siteRoutes");
+const toolRoutes = require("./routes/toolRoutes");
+const userRoutes = require("./routes/userRoutes");
+app.use("/auth", authRoutes);
+app.use("/sites", siteRoutes);
+app.use("/tools", toolRoutes);
+app.use("/users", userRoutes);
