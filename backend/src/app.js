@@ -6,6 +6,8 @@ const app = express();
 // middleware
 app.use(cors({
   origin: "*",
+   methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],//added new
+  allowedHeaders: ["Content-Type", "Authorization"],//add new
   credentials: true
 }));
 app.use(express.json());
