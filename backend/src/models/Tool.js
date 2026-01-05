@@ -19,7 +19,7 @@ const toolSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["active", "idle", "maintenance"],
+      enum: ["pending", "approved", "rejected", "active", "idle", "maintenance"],
       default: "idle",
     },
     siteId: {
@@ -31,6 +31,17 @@ const toolSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    requestedSiteId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Site",
+    },
+    requestedBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    reason: {
+      type: String,
     },
   },
   { timestamps: true }

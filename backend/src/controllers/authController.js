@@ -12,8 +12,9 @@ const login = async (req, res) => {
 
     res.json({
       role: user.role,
-      contractorId: user.contractorId,
+      contractorId: user.contractorId || (user.role === "contractor" ? user._id : null),
       siteId: user.siteId,
+      userId: user._id,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

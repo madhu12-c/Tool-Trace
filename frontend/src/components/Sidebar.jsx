@@ -2,6 +2,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const role = localStorage.getItem('role');
 
   const logout = () => {
     localStorage.clear();
@@ -13,11 +14,21 @@ const Sidebar = () => {
       <h1 className="text-xl font-bold mb-8">ToolTrack</h1>
 
       <nav className="space-y-2">
-        <NavItem to="/contractor/dashboard" label="Dashboard" />
-        <NavItem to="/contractor/sites" label="Sites" />
-        <NavItem to="/contractor/site-managers" label="Site Managers" />
-        <NavItem to="/contractor/tools" label="Tools" />
-        <NavItem to="/contractor/tool-requests" label="Tool Requests" />
+        {role === "contractor" && (
+          <>
+            <NavItem to="/contractor/dashboard" label="Dashboard" />
+            <NavItem to="/contractor/sites" label="Sites" />
+            <NavItem to="/contractor/site-managers" label="Site Managers" />
+            <NavItem to="/contractor/tools" label="Tools" />
+            <NavItem to="/contractor/tool-requests" label="Tool Requests" />
+          </>
+        )}
+        {role === "site_manager" && (
+          <>
+            <NavItem to="/site_manager/dashboard" label="Dashboard" />
+            <NavItem to="/site_manager/tools" label="Tools" />
+          </>
+        )}
       </nav>
 
       <button

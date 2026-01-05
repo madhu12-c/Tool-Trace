@@ -11,20 +11,20 @@ const SiteManagerDashboard = () => {
   const siteId = localStorage.getItem("siteId");
   const role = localStorage.getItem("role");
 
-  // 🔒 Protect route
-  useEffect(() => {
-    if (role !== "site_manager") {
-      navigate("/");
-    }
-  }, [role, navigate]);
+  // Removed redundant protection - route already protects
 
   // 📦 Fetch tools
   const fetchTools = async () => {
     try {
       const res = await api.get(`/tools?siteId=${siteId}`);
-      setTools(res.data);
+      if (Array.isArray(res.data)) {
+        setTools(res.data);
+      } else {
+        setTools([]);
+      }
     } catch (err) {
-      console.error("Error fetching tools", err);
+      console.error("Tools load error", err);
+      setTools([]);
     }
   };
 

@@ -1,21 +1,8 @@
 import { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
-import StatCard from "../components/StatCard";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
 
-const ContractorDashboard = () => {
-  const [stats, setStats] = useState({
-    sites: 0,
-    managers: 0,
-    tools: 0,
-    pending: 0,
-    active: 0,
-    maintenance: 0,
-  });
-
-  const navigate = useNavigate();
-
+const ContractorTools = () => {
   const contractorId = localStorage.getItem("contractorId");
 
   const [tools, setTools] = useState([]);
@@ -29,27 +16,15 @@ const ContractorDashboard = () => {
 
   const fetchData = async () => {
     try {
-      const [sitesRes, managersRes, toolsRes] = await Promise.all([
+      const [sitesRes, toolsRes] = await Promise.all([
         api.get(`/sites?contractorId=${contractorId}`),
-        api.get(`/users/site-managers?contractorId=${contractorId}`),
         api.get(`/tools?contractorId=${contractorId}`),
       ]);
 
-      const toolList = toolsRes.data;
-
-      setStats({
-        sites: sitesRes.data.length,
-        managers: managersRes.data.length,
-        tools: toolList.length,
-        pending: toolList.filter(t => t.status === "pending").length,
-        active: toolList.filter(t => t.status === "active").length,
-        maintenance: toolList.filter(t => t.status === "maintenance").length,
-      });
-
       setSites(sitesRes.data);
-      setTools(toolList);
+      setTools(toolsRes.data);
     } catch (err) {
-      console.error("Dashboard load error", err);
+      console.error("Tools load error", err);
     }
   };
 
@@ -90,29 +65,12 @@ const ContractorDashboard = () => {
       <Sidebar />
 
       <main className="flex-1 p-8 bg-gray-50">
-        <h2 className="text-2xl font-bold mb-2">Dashboard Overview</h2>
+        <h2 className="text-2xl font-bold mb-1">Tools</h2>
         <p className="text-gray-500 mb-6">
-          Welcome back! Here's what's happening with your tools.
+          Manage all tools
         </p>
 
-        {/* Top Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <StatCard title="Total Sites" value={stats.sites} onClick={() => navigate('/contractor/sites')} />
-          <StatCard title="Site Managers" value={stats.managers} onClick={() => navigate('/contractor/site-managers')} />
-          <StatCard title="Total Tools" value={stats.tools} />
-          <StatCard title="Pending Requests" value={stats.pending} />
-        </div>
-
-        {/* Tool Status */}
-        <h3 className="font-semibold mb-3">Tools by Status</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <StatCard title="Active" value={stats.active} />
-          <StatCard title="Pending" value={stats.pending} />
-          <StatCard title="Under Maintenance" value={stats.maintenance} />
-        </div>
-
-        {/* Tools Section */}
-        <h3 className="font-semibold mb-3 mt-8">Manage Tools</h3>
+        {/* Add Tool Form */}
         <div className="bg-white p-4 rounded-lg shadow-sm border mb-6">
           <div className="grid grid-cols-2 gap-3 mb-3">
             <input
@@ -200,4 +158,4 @@ const ContractorDashboard = () => {
   );
 };
 
-export default ContractorDashboard;
+export default ContractorTools;

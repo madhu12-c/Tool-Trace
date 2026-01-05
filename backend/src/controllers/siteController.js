@@ -9,4 +9,14 @@ const createSite = async (req, res) => {
   }
 };
 
-module.exports = { createSite };
+const getSites = async (req, res) => {
+  try {
+    const { contractorId } = req.query;
+    const sites = await Site.find({ contractorId });
+    res.json(sites);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createSite, getSites };

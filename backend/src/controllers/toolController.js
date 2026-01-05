@@ -10,8 +10,12 @@ const createTool = async (req, res) => {
 };
 const getToolsBySite = async (req, res) => {  
   try{
-  const { siteId } = req.query;
-  const tools = await Tool.find({ siteId });
+  const { siteId, contractorId, status } = req.query;
+  let query = {};
+  if (siteId) query.siteId = siteId;
+  if (contractorId) query.contractorId = contractorId;
+  if (status) query.status = status;
+  const tools = await Tool.find(query).populate('siteId', 'siteName').populate('requestedSiteId', 'siteName').populate('requestedBy', 'name');
   res.json(tools);
   }
   catch (error) {
@@ -36,13 +40,20 @@ const updateToolStatus = async (req, res) => {
     console.log("PATCH BODY:", req.body);
     console.log("TOOL ID:", req.params.id);
 
-    const { status } = req.body;
+    const { status, siteId, requestedSiteId, requestedBy, reason } = req.body;
+
+    const updateData = {};
+    if (status) updateData.status = status;
+    if (siteId !== undefined) updateData.siteId = siteId;
+    if (requestedSiteId !== undefined) updateData.requestedSiteId = requestedSiteId;
+    if (requestedBy !== undefined) updateData.requestedBy = requestedBy;
+    if (reason !== undefined) updateData.reason = reason;
 
     const tool = await Tool.findByIdAndUpdate(
       req.params.id,
-      { status },
+      updateData,
       { new: true }
-    );
+    ).populate('siteId', 'siteName').populate('requestedSiteId', 'siteName').populate('requestedBy', 'name');
 
     res.json(tool);
   } catch (error) {

@@ -1,8 +1,9 @@
 const express = require("express");
-const { createSite } = require("../controllers/siteController");
+const { createSite, getSites } = require("../controllers/siteController");
 
 const router = express.Router();
 
 router.post("/", createSite);
+router.get("/", getSites);
 
 module.exports = router;

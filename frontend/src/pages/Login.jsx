@@ -2,6 +2,7 @@ import { useState } from "react";
 import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import SiteManagerDashboard from "./SiteManagerDashboard";
+import ContractorDashboard from "./ContractorDashboard";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,20 +22,23 @@ export default function Login() {
 
     console.log("LOGIN RESPONSE:", res.data);
 
-    const { role, contractorId, siteId } = res.data;
+    const { role, contractorId, siteId, userId } = res.data;
 
     localStorage.setItem("role", role);
     if (contractorId) localStorage.setItem("contractorId", contractorId);
     if (siteId) localStorage.setItem("siteId", siteId);
+    if (userId) localStorage.setItem("userId", userId);
+
+    window.dispatchEvent(new Event("roleChange"));
 
     // IMPORTANT: return after navigate
     if (role === "contractor") {
-      navigate("/contractor");
+      navigate("/contractor/dashboard");
       return;
     }
 
     if (role === "site_manager") {
-      navigate("/site_manager");
+      navigate("/site_manager/dashboard");
       return;
     }
 
