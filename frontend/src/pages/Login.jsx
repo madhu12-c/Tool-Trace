@@ -3,6 +3,7 @@ import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import SiteManagerDashboard from "./SiteManagerDashboard";
 import ContractorDashboard from "./ContractorDashboard";
+import publicImage from "../public/image.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -56,7 +57,7 @@ export default function Login() {
         
         {/* Logo / Title */}
         <div className="text-center mb-6">
-          <div className="flex justify-center"><img className="size-8 mb-3" src="../public/image.png" alt="logo" /></div>
+          <div className="flex justify-center"><img className="size-8 mb-3" src={publicImage} alt="logo" /></div>
           <h1 className="text-2xl font-bold text-gray-800">ToolTrace</h1>
           <p className="text-sm text-gray-500 mb-7">
             Construction Tool Management

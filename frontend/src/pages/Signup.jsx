@@ -1,5 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
+import publicImage from "../public/image.png";
 
 const Signup = () => {
   const [companyName, setCompanyName] = useState("");
@@ -40,7 +41,7 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-slate-50">
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
         <div className="text-center mb-6">
-          <div className="flex justify-center"><img className="size-8 mb-3" src="../public/image.png" alt="logo" /></div>
+          <div className="flex justify-center"><img className="size-8 mb-3" src={publicImage} alt="logo" /></div>
           <h1 className="text-2xl font-bold">ToolTrack</h1>
           <p className="text-sm text-gray-500">
             Construction Tool Management
