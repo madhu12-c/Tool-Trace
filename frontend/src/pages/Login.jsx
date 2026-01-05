@@ -56,20 +56,21 @@ export default function Login() {
         
         {/* Logo / Title */}
         <div className="text-center mb-6">
-          <div className="text-3xl">🏗️</div>
+          <div className="flex justify-center"><img className="size-8 mb-3" src="../public/image.png" alt="logo" /></div>
           <h1 className="text-2xl font-bold text-gray-800">ToolTrace</h1>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-500 mb-7">
             Construction Tool Management
           </p>
-        </div>
+        
 
         {/* Sign in */}
-        <h2 className="text-xl font-semibold text-gray-800 mb-1">
+        <h2 className="text-xl font-bold text-gray-800 mb-1 ">
           Sign in
         </h2>
         <p className="text-sm text-gray-500 mb-6">
           Enter your credentials to access your account
         </p>
+        </div>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <input
@@ -90,12 +91,7 @@ export default function Login() {
             required
           />
 
-          {/* Demo credentials */}
-          <div className="bg-gray-100 text-sm rounded-md p-3 text-gray-700">
-            <p className="font-medium mb-1">Demo Credentials</p>
-            <p>Contractor: contractor@test.com / 123456</p>
-            <p>Site Manager: manager@test.com / 123456</p>
-          </div>
+          
 
           <button
             type="submit"
