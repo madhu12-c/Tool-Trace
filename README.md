@@ -94,7 +94,7 @@ Each tool can have one of the following states:
 
 ### 🔗 Live Demo
 
-👉 **Vercel App:** [https://tooltrace.vercel.app](https://tooltrace.vercel.app)
+👉 **Vercel App:** [ToolTrace](https://tool-trace.vercel.app/)
 
 Environment variables are used for secure configuration.
 
